@@ -32,13 +32,16 @@ const MigrationContext = React.createContext({
 
 export const useMigrate = () => React.useContext(MigrationContext);
 
-const Bootstrap: React.FC<{ db: DB; migrations: Migration[] }> = ({
+const Bootstrap: React.FC<{ db: DB; migrations: Migration[], startsBootstrap: boolean }> = ({
   children,
   db,
   migrations,
+  startsBootstrap
 }) => {
   const { execute, isFinished } = useMigrate();
+
   React.useEffect(() => {
+    if(!startsBootstrap) return;
     if (isFinished) return;
     execute(db, migrations);
   }, [execute, isFinished]);
@@ -49,13 +52,13 @@ const Bootstrap: React.FC<{ db: DB; migrations: Migration[] }> = ({
 export const MigrationProvider: React.FC<{
   db: DB;
   migrations: Migration[];
-  options?: { isStartingBootstrap: boolean };
+  options?: { startsBootstrap: boolean };
 }> = ({ children, db, migrations, options }) => {
-  const _isStartingBootstrap = options?.isStartingBootstrap || true;
+  const _startsBootstrap = options?.startsBootstrap || true;
 
   return (
     <MigrationBaseProvider>
-      {_isStartingBootstrap && <Bootstrap db={db} migrations={migrations} />}
+      <Bootstrap db={db} migrations={migrations} startsBootstraop={_startsBootstrap}/>
       {children}
     </MigrationBaseProvider>
   );
