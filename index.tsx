@@ -32,17 +32,11 @@ const MigrationContext = createContext({
 
 export const useMigrate = () => useContext(MigrationContext);
 
-export const TestComponent: FC = () => {
-  console.log('[raw-sql]render test component')
-  return <></>
-}
-
 export const MigrationProvider: FC<{
   db: DB;
   migrations: Migration[];
   options?: { startsBootstrap: boolean };
 }> = ({ children, db, migrations, options }) => {
-  console.log('[MigraionProvider]render')
   const _startsBootstrap = options?.startsBootstrap || true;
 
   return (
