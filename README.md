@@ -1,6 +1,6 @@
 # react-native-expo-raw-sql-migrations
 
-Migration System to use raw SQL for expo managed react native app.
+SQLite migration System to use raw SQL for expo managed react native app.
 Implemented with React Hooks and TypeScript.
 
 ## Installation
