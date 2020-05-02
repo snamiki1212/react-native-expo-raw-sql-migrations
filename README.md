@@ -43,6 +43,7 @@ export const migrations: Migration[] = [
 ];
 
 // 2) Wrap provider
+//    Execute to migrate automatically.
 const App = () => {
   return(
     <MigrationProvider db={db} migrations={migrations}>
@@ -79,11 +80,11 @@ export const SomethingComponent = () => {
 
 ### Custom Way
 
-If you would like to handle migration logic yourself, pass starts bootstrap handle options to Provider Component. e.g`<MigrationProvider options={{ startsBootstrap: false }}>{...}</MigrationProvider>`
+If you would like to handle migration logic yourself, pass startsBootstrap option to Provider Component. e.g`<MigrationProvider options={{ startsBootstrap: false }}>{...}</MigrationProvider>`
 
 ## Used by
 
-This app is used by [Keputo - KPT method - Keep/Problem/Try](https://keputo.snamiki1212.com/) as expo mobile app.
+This package is used by [Keputo - KPT method - Keep/Problem/Try](https://keputo.snamiki1212.com/) as expo mobile app.
 
 ## etc
 
