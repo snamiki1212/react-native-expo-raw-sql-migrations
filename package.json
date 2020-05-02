@@ -2,7 +2,7 @@
   "name": "react-native-expo-raw-sql-migrations",
   "version": "0.0.1",
   "description": "raw sql migration tool for react-nativ expo",
-  "main": "index.js",
+  "main": "index.tsx",
   "repository": "git@github.com:snamiki1212/react-native-expo-raw-sql-migrations.git",
   "author": "snamiki1212 <snamiki1212@gmail.com>",
   "license": "MIT",
