@@ -1,5 +1,5 @@
-import React from "react";
-import * as SQLite from "expo-sqlite";
+import React, { createContext, useContext, FC, useState, useEffect } from "react";
+import { WebSQLDatabase, ResultSetError } from "expo-sqlite";
 
 /**
  * Types
@@ -14,7 +14,7 @@ type Options = {
   columnName?: string;
 };
 
-type DB = SQLite.WebSQLDatabase;
+type DB = WebSQLDatabase;
 
 /**
  * Constants
@@ -25,18 +25,24 @@ const DEFAULT_COLUMN_NAME = "versions";
 /**
  * Logics
  */
-const MigrationContext = React.createContext({
+const MigrationContext = createContext({
   isFinished: false,
   execute: undefined,
 });
 
-export const useMigrate = () => React.useContext(MigrationContext);
+export const useMigrate = () => useContext(MigrationContext);
 
-export const MigrationProvider: React.FC<{
+export const TestComponent: FC = () => {
+  console.log('[raw-sql]render test component')
+  return <></>
+}
+
+export const MigrationProvider: FC<{
   db: DB;
   migrations: Migration[];
   options?: { startsBootstrap: boolean };
 }> = ({ children, db, migrations, options }) => {
+  console.log('[MigraionProvider]render')
   const _startsBootstrap = options?.startsBootstrap || true;
 
   return (
@@ -50,17 +56,12 @@ export const MigrationProvider: React.FC<{
   );
 };
 
-export const MigrationBaseProvider: React.FC<{
+export const MigrationBaseProvider: FC<{
   db: DB;
   migrations: Migration[];
   startsBootstrap: boolean;
-}> = ({
-  children,
-  db,
-  migrations,
-  startsBootstrap,
-}) => {
-  const [isFinished, setIsFinished] = React.useState<boolean>(false);
+}> = ({ children, db, migrations, startsBootstrap }) => {
+  const [isFinished, setIsFinished] = useState<boolean>(false);
 
   const execute = (db: DB, migrationList: Migration[], options?: Options) => {
     const tableName = options?.tableName || DEFAULT_TABLE_NAME;
@@ -80,9 +81,9 @@ export const MigrationBaseProvider: React.FC<{
           throw err;
         }
 
-        if(!results){
-          const msg = 'canot get results'
-          console.error(msg)
+        if (!results) {
+          const msg = "canot get results";
+          console.error(msg);
           throw err;
         }
 
@@ -101,12 +102,12 @@ export const MigrationBaseProvider: React.FC<{
               console.error(err);
               throw err;
             }
-            if(!results){
-              const msg = 'canot get results'
-              console.error(msg)
+            if (!results) {
+              const msg = "canot get results";
+              console.error(msg);
               throw err;
             }
-    
+
             const result = results[0];
             if (isResultSetError(result)) {
               console.error(result.error);
@@ -156,12 +157,12 @@ export const MigrationBaseProvider: React.FC<{
             console.error(err);
             throw err;
           }
-          if(!results){
-            const msg = 'canot get results'
-            console.error(msg)
+          if (!results) {
+            const msg = "canot get results";
+            console.error(msg);
             throw err;
           }
-  
+
           const result = results[0];
           if (isResultSetError(result)) {
             console.error(result.error);
@@ -175,7 +176,7 @@ export const MigrationBaseProvider: React.FC<{
 
   const value = { isFinished, execute };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!startsBootstrap) return;
     if (isFinished) return;
     execute(db, migrations);
@@ -188,4 +189,4 @@ export const MigrationBaseProvider: React.FC<{
   );
 };
 
-const isResultSetError = (r: any): r is SQLite.ResultSetError => !!r.error;
+const isResultSetError = (r: any): r is ResultSetError => !!r.error;
