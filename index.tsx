@@ -55,13 +55,8 @@ export const MigrationProvider: React.FC<{
 
   return (
     <MigrationBaseProvider>
-      {_isStartingBootstrap ? (
-        <Bootstrap db={db} migrations={migrations}>
-          {children}
-        </Bootstrap>
-      ) : (
-        { children }
-      )}
+      {_isStartingBootstrap && <Bootstrap db={db} migrations={migrations} />}
+      {children}
     </MigrationBaseProvider>
   );
 };
