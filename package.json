@@ -1,24 +1,26 @@
 {
+  "scripts": {
+    "build": "yarn run tsc"
+  },
   "name": "react-native-expo-raw-sql-migrations",
-  "version": "0.0.3",
+  "version": "0.1.2",
   "description": "raw sql migration tool for react-nativ expo",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "repository": "git@github.com:snamiki1212/react-native-expo-raw-sql-migrations.git",
   "author": "snamiki1212 <snamiki1212@gmail.com>",
   "license": "MIT",
-  "scripts":{
-    "build": "yarn run tsc"
-  },
-  "files": [
-    "lib"
-  ],
   "dependencies": {
-    "typescript": "^3.8.3",
-    "tslib": "^1.10.0"
+    "tslib": "^1.11.1"
   },
   "peerDependencies": {
-    "react": "^16.13.1",
-    "expo-sqlite": "^8.1.0"
+    "expo-sqlite": "^8.1.0",
+    "react": "^16.8.1",
+    "typescript": "^3.8.3"
+  },
+  "devDependencies": {
+    "expo-sqlite": "^8.1.0",
+    "react": "^16.8.1",
+    "typescript": "^3.8.3"
   }
 }
