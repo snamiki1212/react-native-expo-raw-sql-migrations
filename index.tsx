@@ -80,6 +80,12 @@ export const MigrationBaseProvider: React.FC<{
           throw err;
         }
 
+        if(!results){
+          const msg = 'canot get results'
+          console.error(msg)
+          throw err;
+        }
+
         const result = results[0];
 
         if (isResultSetError(result)) {
@@ -95,6 +101,12 @@ export const MigrationBaseProvider: React.FC<{
               console.error(err);
               throw err;
             }
+            if(!results){
+              const msg = 'canot get results'
+              console.error(msg)
+              throw err;
+            }
+    
             const result = results[0];
             if (isResultSetError(result)) {
               console.error(result.error);
@@ -144,6 +156,12 @@ export const MigrationBaseProvider: React.FC<{
             console.error(err);
             throw err;
           }
+          if(!results){
+            const msg = 'canot get results'
+            console.error(msg)
+            throw err;
+          }
+  
           const result = results[0];
           if (isResultSetError(result)) {
             console.error(result.error);
