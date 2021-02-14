@@ -1,7 +1,6 @@
 # react-native-expo-raw-sql-migrations
 
-SQLite migration System to use raw SQL for expo managed react native app.
-Implemented with React Hooks and TypeScript.
+SQLite migrater with raw SQL for expo-managed React Native app using React Hooks and TypeScript.
 
 ## Installation
 
@@ -13,7 +12,7 @@ npm install --save react-native-expo-raw-sql-migrations
 
 ## Usage
 
-### Normal Way
+### Standard
 
 Automatically migrate.
 
@@ -78,7 +77,7 @@ export const SomethingComponent = () => {
 ```
 
 
-### Custom Way
+### Advanced
 
 If you would like to handle migration logic yourself, pass startsBootstrap option to Provider Component. e.g`<MigrationProvider options={{ startsBootstrap: false }}>{...}</MigrationProvider>`
 
@@ -86,6 +85,6 @@ If you would like to handle migration logic yourself, pass startsBootstrap optio
 
 This package is used by [Keputo - KPT method - Keep/Problem/Try](https://keputo.snamiki1212.com/) as expo mobile app.
 
-## etc
+## Acknowledges
 
 - Inspierd by [GitHub - langleyfoxall/react-native-expo-sql-migrations](https://github.com/langleyfoxall/react-native-expo-sql-migrations).
