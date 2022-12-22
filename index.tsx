@@ -16,6 +16,11 @@ type Options = {
 
 type DB = WebSQLDatabase;
 
+type MigrationContextValues = {
+  isFinished: boolean;
+  execute?: (...args: any) => void;
+}
+
 /**
  * Constants
  */
@@ -25,7 +30,7 @@ const DEFAULT_COLUMN_NAME = "versions";
 /**
  * Logics
  */
-const MigrationContext = createContext({
+const MigrationContext = createContext<MigrationContextValues>({
   isFinished: false,
   execute: undefined,
 });
@@ -36,6 +41,7 @@ export const MigrationProvider: FC<{
   db: DB;
   migrations: Migration[];
   options?: { startsBootstrap: boolean };
+  children: React.ReactNode;
 }> = ({ children, db, migrations, options }) => {
   const _startsBootstrap = options?.startsBootstrap || true;
 
@@ -54,6 +60,7 @@ export const MigrationBaseProvider: FC<{
   db: DB;
   migrations: Migration[];
   startsBootstrap: boolean;
+  children: React.ReactNode;
 }> = ({ children, db, migrations, startsBootstrap }) => {
   const [isFinished, setIsFinished] = useState<boolean>(false);
 
@@ -168,7 +175,7 @@ export const MigrationBaseProvider: FC<{
     });
   };
 
-  const value = { isFinished, execute };
+  const value: MigrationContextValues = { isFinished, execute };
 
   useEffect(() => {
     if (!startsBootstrap) return;
